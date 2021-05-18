@@ -64,8 +64,6 @@ export default class{
         geometry.setAttribute('aPosition', new THREE.BufferAttribute(position, 3))
         geometry.setAttribute('aCoord', new THREE.BufferAttribute(coord, 2))
 
-        console.log(geometry.attributes.position)
-
         return geometry
     }
     createMaterial(){
