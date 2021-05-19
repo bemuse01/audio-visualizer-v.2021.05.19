@@ -2,7 +2,9 @@ import * as THREE from '../../lib/three.module.js'
 
 export default {
     createAudioBuffer(sample, size){
-        sample = sample.map((e, i, a) => this.map(e, a))
+        const avg = sample.reduce((x, y) => x + y) / sample.length
+        sample = sample.map(e => Math.max(1, e - avg))
+
         const merge = [...sample, ...sample]
 
         // const median = METHOD.median(merge)
@@ -16,10 +18,5 @@ export default {
         // const merge = [...temp, ...temp]
 
         return new THREE.DataTexture(new Float32Array(merge), size, size, THREE.RedFormat, THREE.FloatType)
-    },
-    map(e, a){
-        // const median = METHOD.median(a)
-        const avg = a.reduce((x, y) => x + y) / a.length
-        return Math.max(1, e - avg)
     }
 }
