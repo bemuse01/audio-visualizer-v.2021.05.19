@@ -35,8 +35,10 @@ export default class{
         this.audioUniforms = this.audioVariable.material.uniforms
 
         this.audioUniforms['buffer'] = {value: null}
-        this.audioUniforms['col'] = {value: PARAM.size}
-        this.audioUniforms['row'] = {value: PARAM.size}
+        this.audioUniforms['uFilter'] = {value: METHOD.createKernel(PARAM.filter)}
+        this.audioUniforms['uSize'] = {value: PARAM.size}
+        this.audioUniforms['kernelSize'] = {value: PARAM.filter.length}
+        this.audioUniforms['center'] = {value: Math.floor(PARAM.filter.length / 2)}
     }
 
 

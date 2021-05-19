@@ -31,16 +31,33 @@ export default {
     audio: {
         fragment: `
             uniform sampler2D buffer;
+            uniform float uFilter[25];
+            uniform int kernelSize;
+            uniform int center;
+            uniform int uSize;
 
             void main(){
                 ivec2 coord = ivec2(gl_FragCoord.xy);
 
                 vec4 aud = texelFetch(audio, coord, 0);
-                float buffer = float(texelFetch(buffer, coord, 0));
-                // vec4 buffer = texelFetch(buffer, coord, 0);
 
-                aud.x = buffer;
-                // aud.x = buffer.x;
+                float value = 0.0;
+
+                for(int i = 0; i < kernelSize * kernelSize; i++){
+                    int x = int(i % kernelSize) - center;
+                    int y = int(i / kernelSize) - center;
+                    ivec2 pos = coord + ivec2(x, y);
+                    
+                    // if(pos.x < 0) pos.x = -pos.x;
+                    // if(pos.y < 0) pos.y = -pos.y;
+                    
+                    // if(pos.x > uSize) pos.x = uSize - (pos.x - uSize);
+                    // if(pos.y > uSize) pos.y = uSize - (pos.y - uSize);
+
+                    value += float(texelFetch(buffer, pos, 0)) * uFilter[i];
+                }
+
+                aud.x = value;
 
                 gl_FragColor = aud;
             }

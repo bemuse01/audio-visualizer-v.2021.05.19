@@ -18,5 +18,19 @@ export default {
         }
 
         return {position: new Float32Array(position), coord: new Float32Array(coord)}
+    },
+    createKernel(temp){
+        const arr = []
+        let count = 0
+
+        for(let i = 0; i < temp.length; i++){
+            for(let j = 0; j < temp.length; j++){
+                const value = temp[i] * temp[j]
+                count += value
+                arr.push(value)
+            }
+        }
+
+        return arr.map(e => e / count)
     }
 }

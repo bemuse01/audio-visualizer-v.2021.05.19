@@ -1,7 +1,10 @@
+import AUDIO_PARAM from '../../audio/audio.param.js'
+
 export default {
     width: 500,
     height: 5,
-    seg: (18 ** 2) / 2 - 1,
-    size: 18,
-    color: 0xffffff
+    seg: AUDIO_PARAM.display - 1,
+    size: AUDIO_PARAM.size,
+    color: 0xffffff,
+    filter: [1, 4, 6, 4, 1]
 }

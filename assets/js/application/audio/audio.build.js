@@ -1,5 +1,6 @@
 import * as THREE from '../../lib/three.module.js'
 import METHOD from './audio.method.js'
+import PARAM from './audio.param.js'
 
 export default class{
     constructor(){
@@ -13,12 +14,6 @@ export default class{
     init(){
         this.src = 'assets/src/Rapid as Wildfires.mp3'
         this.start = true
-        this.param = {
-            fft: 2 ** 14,
-            fps: 60,
-            display: (18 ** 2) / 2,
-            size: 18
-        }
         this.buffer = null
     }
 
@@ -42,8 +37,8 @@ export default class{
         this.analyser = this.context.createAnalyser()
 		source.connect(this.analyser)
 		this.analyser.connect(this.context.destination)
-		this.analyser.fftSize = this.param.fft
-        this.analyser.smoothingTimeConstant = 0.9
+		this.analyser.fftSize = PARAM.fft
+        this.analyser.smoothingTimeConstant = 0.8
         
         const bufferLength = this.analyser.frequencyBinCount
         
@@ -55,10 +50,10 @@ export default class{
     animate(){
         this.analyser.getByteFrequencyData(this.audioData)
 
-        const startOffset = Math.floor(1 / this.param.fps * this.context.sampleRate)
-        const sample = this.audioData.slice(startOffset, startOffset + this.param.display)
+        const startOffset = Math.floor(1 / PARAM.fps * this.context.sampleRate)
+        const sample = this.audioData.slice(startOffset, startOffset + PARAM.display)
 
-        this.buffer = METHOD.createAudioBuffer(sample, this.param.size)
+        this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
     }
 
 
