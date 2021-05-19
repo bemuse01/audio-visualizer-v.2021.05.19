@@ -30,8 +30,10 @@ export default {
     },
     audio: {
         fragment: `
+            #define KERNEL_LEN ${PARAM.filter.length ** 2}
+
             uniform sampler2D buffer;
-            uniform float uFilter[25];
+            uniform float uFilter[KERNEL_LEN];
             uniform int kernelSize;
             uniform int center;
             uniform int uSize;
@@ -43,7 +45,7 @@ export default {
 
                 float value = 0.0;
 
-                for(int i = 0; i < kernelSize * kernelSize; i++){
+                for(int i = 0; i < KERNEL_LEN; i++){
                     int x = int(i % kernelSize) - center;
                     int y = int(i / kernelSize) - center;
                     ivec2 pos = coord + ivec2(x, y);

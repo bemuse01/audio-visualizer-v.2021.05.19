@@ -6,5 +6,5 @@ export default {
     seg: AUDIO_PARAM.display - 1,
     size: AUDIO_PARAM.size,
     color: 0xffffff,
-    filter: [1, 4, 6, 4, 1]
+    filter: [1, 4, 10, 4, 1]
 }
