@@ -38,7 +38,7 @@ export default class{
 		source.connect(this.analyser)
 		this.analyser.connect(this.context.destination)
 		this.analyser.fftSize = PARAM.fft
-        this.analyser.smoothingTimeConstant = 0.85
+        this.analyser.smoothingTimeConstant = 0.9
         
         const bufferLength = this.analyser.frequencyBinCount
         
@@ -53,7 +53,9 @@ export default class{
         const startOffset = Math.floor(1 / PARAM.fps * this.context.sampleRate)
         const sample = this.audioData.slice(startOffset, startOffset + PARAM.display)
 
-        this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
+        // this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
+        // this.buffer = METHOD.getSMA(sample, PARAM.size, PARAM.subset)
+        this.buffer = METHOD.getCubicSpline(sample, PARAM.size)
     }
 
 

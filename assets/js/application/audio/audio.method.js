@@ -1,4 +1,5 @@
 import * as THREE from '../../lib/three.module.js'
+import Spline from '../../lib/cubic-spline.js'
 
 export default {
     createAudioBuffer(sample, size){
@@ -19,5 +20,41 @@ export default {
         // const merge = [...temp, ...temp]
 
         return new THREE.DataTexture(new Float32Array(merge), size, size, THREE.RedFormat, THREE.FloatType)
+    },
+    getSMA(sample, size, subset){
+        const len = sample.length 
+        
+        const avg = sample.reduce((x, y) => x + y) / len
+        sample = sample.map(e => Math.max(1, e - avg))
+
+        let temp = []
+        
+        for(let i = 0; i < len; i++){
+            let sum = 0, avg = 0
+            for(let j = i; j < (i + subset) % len; j++){
+                sum += sample[j] 
+            }
+            avg = sum / subset
+            temp.push(avg)
+        }
+
+        return new THREE.DataTexture(new Float32Array(temp), size, size, THREE.RedFormat, THREE.FloatType)
+    },
+    getCubicSpline(sample, size){
+        const len = sample.length 
+        let temp = []
+
+        const xs = sample.map((_, i) => i)
+        const ys = sample
+        const spline = new Spline(xs, ys)
+        
+        for(let i = 0; i < len; i++){
+            temp.push(spline.at(i * 0.2))
+        }
+
+        const avg = temp.reduce((x, y) => x + y) / len
+        temp = temp.map(e => Math.max(1, e - avg))
+        
+        return new THREE.DataTexture(new Float32Array(temp), size, size, THREE.RedFormat, THREE.FloatType)
     }
 }
