@@ -5,7 +5,8 @@ export default {
         const avg = sample.reduce((x, y) => x + y) / sample.length
         sample = sample.map(e => Math.max(1, e - avg))
 
-        const merge = [...sample, ...sample]
+        // const merge = [...sample, ...sample]
+        const merge = sample
 
         // const median = METHOD.median(merge)
         

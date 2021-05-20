@@ -34,11 +34,11 @@ export default class{
 
         this.audioUniforms = this.audioVariable.material.uniforms
 
-        this.audioUniforms['buffer'] = {value: null}
-        this.audioUniforms['uFilter'] = {value: METHOD.createKernel(PARAM.filter)}
+        this.audioUniforms['uBuffer'] = {value: null}
+        this.audioUniforms['uKernel'] = {value: METHOD.createKernel(PARAM.filter)}
         this.audioUniforms['uSize'] = {value: PARAM.size}
-        this.audioUniforms['kernelSize'] = {value: PARAM.filter.length}
-        this.audioUniforms['center'] = {value: Math.floor(PARAM.filter.length / 2)}
+        this.audioUniforms['uKernelSize'] = {value: PARAM.filter.length}
+        this.audioUniforms['uCenter'] = {value: Math.floor(PARAM.filter.length / 2)}
     }
 
 
@@ -85,7 +85,7 @@ export default class{
     animate(buffer){
         this.gpuCompute.compute()
 
-        this.audioUniforms['buffer'].value = buffer
+        this.audioUniforms['uBuffer'].value = buffer
 
         this.mesh.material.uniforms['uAudio'].value = this.gpuCompute.getCurrentRenderTarget(this.audioVariable).texture
     }

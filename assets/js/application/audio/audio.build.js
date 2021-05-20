@@ -12,7 +12,7 @@ export default class{
 
     // init 
     init(){
-        this.src = 'assets/src/Rapid as Wildfires.mp3'
+        this.src = 'assets/src/LiSA - Unlasting.mp3'
         this.start = true
         this.buffer = null
     }
@@ -38,7 +38,7 @@ export default class{
 		source.connect(this.analyser)
 		this.analyser.connect(this.context.destination)
 		this.analyser.fftSize = PARAM.fft
-        this.analyser.smoothingTimeConstant = 0.8
+        this.analyser.smoothingTimeConstant = 0.85
         
         const bufferLength = this.analyser.frequencyBinCount
         

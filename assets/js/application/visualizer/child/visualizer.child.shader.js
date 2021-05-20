@@ -32,10 +32,10 @@ export default {
         fragment: `
             #define KERNEL_LEN ${PARAM.filter.length ** 2}
 
-            uniform sampler2D buffer;
-            uniform float uFilter[KERNEL_LEN];
-            uniform int kernelSize;
-            uniform int center;
+            uniform sampler2D uBuffer;
+            uniform float uKernel[KERNEL_LEN];
+            uniform int uKernelSize;
+            uniform int uCenter;
             uniform int uSize;
 
             void main(){
@@ -46,8 +46,8 @@ export default {
                 float value = 0.0;
 
                 for(int i = 0; i < KERNEL_LEN; i++){
-                    int x = int(i % kernelSize) - center;
-                    int y = int(i / kernelSize) - center;
+                    int x = int(i % uKernelSize) - uCenter;
+                    int y = int(i / uKernelSize) - uCenter;
                     ivec2 pos = coord + ivec2(x, y);
                     
                     // if(pos.x < 0) pos.x = -pos.x;
@@ -56,7 +56,7 @@ export default {
                     // if(pos.x > uSize) pos.x = uSize - (pos.x - uSize);
                     // if(pos.y > uSize) pos.y = uSize - (pos.y - uSize);
 
-                    value += float(texelFetch(buffer, pos, 0)) * uFilter[i];
+                    value += float(texelFetch(uBuffer, pos, 0)) * uKernel[i];
                 }
 
                 aud.x = value;
