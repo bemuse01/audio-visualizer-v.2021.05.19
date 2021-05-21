@@ -21,7 +21,16 @@ export default {
 
         return new THREE.DataTexture(new Float32Array(merge), size, size, THREE.RedFormat, THREE.FloatType)
     },
-    getSMA(sample, size, subset){
+    createStepAudioBuffer(sample, {display, step}){
+        const temp = []
+
+        for(let i = 0; i < display; i++){
+            temp.push(sample[i * step])
+        }
+
+        return temp
+    },
+    createSmaAduioBuffer(sample, size, subset){
         const len = sample.length 
         
         const avg = sample.reduce((x, y) => x + y) / len
@@ -40,21 +49,21 @@ export default {
 
         return new THREE.DataTexture(new Float32Array(temp), size, size, THREE.RedFormat, THREE.FloatType)
     },
-    getCubicSpline(sample, size){
+    createCubicSplineAudioBuffer(sample, index, {size, smooth}){
         const len = sample.length 
         let temp = []
 
-        const xs = sample.map((_, i) => i)
+        const xs = index
         const ys = sample
         const spline = new Spline(xs, ys)
         
         for(let i = 0; i < len; i++){
-            temp.push(spline.at(i * 0.2))
+            temp.push(spline.at(i * smooth))
         }
 
         const avg = temp.reduce((x, y) => x + y) / len
         temp = temp.map(e => Math.max(1, e - avg))
-        
+
         return new THREE.DataTexture(new Float32Array(temp), size, size, THREE.RedFormat, THREE.FloatType)
     }
 }

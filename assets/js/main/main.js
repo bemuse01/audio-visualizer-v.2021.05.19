@@ -1,11 +1,15 @@
 import APP from '../application/app/app.build.js'
 import AUDIO from '../application/audio/audio.build.js'
 import VISUALIZER from '../application/visualizer/visualizer.build.js'
+import PROGRESS from '../application/progress/progress.build.js'
 
 new Vue({
     el: '#wrap',
     data(){
         return{
+            element: {
+                progress: new PROGRESS(OBJECT)
+            }
         }
     },
     mounted(){
@@ -54,6 +58,19 @@ new Vue({
         },
 
 
+        // element
+        animateElement(){
+            for(let i in this.element){
+                if(!this.element[i].animate) continue
+                this.element[i].animate(OBJECT)
+            }
+        },
+        onClickProgress(e){
+            const {audio} = OBJECT
+            this.element.progress.group.child.onClick(e, audio)
+        },
+
+
         // event
         onWindowResize(){
             this.resizeThree()
@@ -66,6 +83,7 @@ new Vue({
         },
         animate(){
             this.render()
+            this.animateElement()
             requestAnimationFrame(this.animate)
         }
     }

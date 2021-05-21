@@ -3,5 +3,8 @@ export default {
     fps: 60,
     display: 16 ** 2,
     size: 16,
-    subset: 40
+    subset: 40,
+    smooth: 0.14,
+    // smooth: 0.04,
+    step: 8
 }

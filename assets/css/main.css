@@ -37,3 +37,35 @@ div.visualizer-object{
     width: 100%;
     height: 100%;
 }
+
+
+/* progress */
+div.progress{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 40px;
+}
+div.progress-move{
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    transform: scaleY(0.1);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+
+}
+div.progress-bar{
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background: white;
+    transform: scaleY(0.1);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+}
+div.progress:hover > div{
+    transform: scaleY(0.4);
+}

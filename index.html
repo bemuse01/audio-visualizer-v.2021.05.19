@@ -33,6 +33,15 @@
                         <div class="visualizer-object"></div>
                     </div>
                 </div>
+                <div 
+                    class="ui progress" 
+                    @mousemove="(e) => element.progress.group.child.onMousemove(e)"
+                    @mouseleave="() => element.progress.group.child.onMouseleave()"
+                    @click="(e) => onClickProgress(e)"
+                >
+                    <div class="progress-move" :style="element.progress.group.child.get()"></div>
+                    <div class="progress-bar" :style="element.progress.group.bar.get()"></div>
+                </div>
             </div>
         </div>
         <script src="assets/js/main/main.js" type="module"></script>

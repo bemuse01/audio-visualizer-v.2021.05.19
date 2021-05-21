@@ -15,6 +15,9 @@ export default class{
         this.src = 'assets/src/LiSA - Unlasting.mp3'
         this.start = true
         this.buffer = null
+        this.duration = 0
+        this.currentTime = 0
+        this.index = new Array(PARAM.display).fill(0).map((_, i) => i)
     }
 
 
@@ -28,6 +31,8 @@ export default class{
         this.audio.loop = true
         this.audio.src = this.src
         this.audio.volume = 0.6
+
+        this.updateAudioCurrentTime()
     }
     createContext(){
         this.context = new AudioContext()
@@ -46,16 +51,29 @@ export default class{
     }
 
 
+    onReadyAudio(){
+        this.audio.addEventListener('load', () => {
+        })
+    }
+    // update audio current time
+    updateAudioCurrentTime(){
+        this.audio.addEventListener('timeupdate', () => {
+            this.currentTime = this.audio.currentTime
+        })
+    }
+
+
     // animate
     animate(){
         this.analyser.getByteFrequencyData(this.audioData)
 
         const startOffset = Math.floor(1 / PARAM.fps * this.context.sampleRate)
-        const sample = this.audioData.slice(startOffset, startOffset + PARAM.display)
+        // const sample = this.audioData.slice(startOffset, startOffset + PARAM.display)
+        const sample = METHOD.createStepAudioBuffer(this.audioData.slice(startOffset), PARAM)
 
         // this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
-        // this.buffer = METHOD.getSMA(sample, PARAM.size, PARAM.subset)
-        this.buffer = METHOD.getCubicSpline(sample, PARAM.size)
+        // this.buffer = METHOD.createSmaAduioBuffer(sample, PARAM.size, PARAM.subset)
+        this.buffer = METHOD.createCubicSplineAudioBuffer(sample, this.index, PARAM)
     }
 
 
@@ -65,6 +83,7 @@ export default class{
             this.audio.play()
             this.context.resume()
             this.start = false
+            this.duration = this.audio.duration
         }
     }
 }
