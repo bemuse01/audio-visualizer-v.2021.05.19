@@ -43,7 +43,7 @@ export default class{
 		source.connect(this.analyser)
 		this.analyser.connect(this.context.destination)
 		this.analyser.fftSize = PARAM.fft
-        this.analyser.smoothingTimeConstant = 0.9
+        this.analyser.smoothingTimeConstant = 0.85
         
         const bufferLength = this.analyser.frequencyBinCount
         
@@ -51,10 +51,6 @@ export default class{
     }
 
 
-    onReadyAudio(){
-        this.audio.addEventListener('load', () => {
-        })
-    }
     // update audio current time
     updateAudioCurrentTime(){
         this.audio.addEventListener('timeupdate', () => {
@@ -74,6 +70,7 @@ export default class{
         // this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
         // this.buffer = METHOD.createSmaAduioBuffer(sample, PARAM.size, PARAM.subset)
         this.buffer = METHOD.createCubicSplineAudioBuffer(sample, this.index, PARAM)
+        // this.buffer = METHOD.createCubicSplineAudioBuffer2(sample, this.index, PARAM)
     }
 
 
