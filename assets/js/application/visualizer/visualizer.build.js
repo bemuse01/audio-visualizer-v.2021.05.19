@@ -1,12 +1,12 @@
 import * as THREE from '../../lib/three.module.js'
 // import CHILD from './child/visualizer.child.build.js'
-// import CHILD from './child2/visualizer.child.build.js'
-import CHILD from './child3/visualizer.child.build.js'
+import CHILD from './child2/visualizer.child.build.js'
+// import CHILD from './child3/visualizer.child.build.js'
 
 export default class{
-    constructor(app){
+    constructor({app, audio}){
         this.init()
-        this.create(app)
+        this.create({...app, ...audio})
         this.add()
     }
 
@@ -66,11 +66,11 @@ export default class{
 
 
     // create
-    create({renderer}){
-        this.createChild(renderer)
+    create({renderer, analyser}){
+        this.createChild(renderer, analyser)
     }
-    createChild(renderer){
-        this.comp.child = new CHILD(this.group.child, renderer)
+    createChild(renderer, analyser){
+        this.comp.child = new CHILD(this.group.child, renderer, analyser)
     }
 
 
@@ -92,10 +92,10 @@ export default class{
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
     }
-    animateObject({buffer}){
+    animateObject(audio){
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate(buffer)
+            this.comp[i].animate(audio)
         }
     }
 

@@ -1,9 +1,12 @@
-import AUDIO_PARAM from '../../audio2/audio.param.js'
-
 export default {
+    fps: 60,
+    step: 12,
     radius: 250,
     gap: 5,
-    seg: AUDIO_PARAM.display - 1,
-    size: AUDIO_PARAM.size,
-    color: 0xffffff
+    display: (18 ** 2) / 2,
+    seg: (18 ** 2) / 2 - 1,
+    size: 18,
+    color: 0xffffff,
+    smooth: 0.08,
+    smoothingTimeConstant: 0.8
 }

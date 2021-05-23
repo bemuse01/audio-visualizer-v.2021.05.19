@@ -1,6 +1,5 @@
 import APP from '../application/app/app.build.js'
-// import AUDIO from '../application/audio/audio.build.js'
-import AUDIO from '../application/audio2/audio.build.js'
+import AUDIO from '../application/audio/audio.build.js'
 import VISUALIZER from '../application/visualizer/visualizer.build.js'
 import PROGRESS from '../application/progress/progress.build.js'
 
@@ -29,7 +28,7 @@ new Vue({
         initThree(){
             OBJECT.app = new APP()
 
-            this.createObject(OBJECT.app)
+            this.createObject()
         },
         resizeThree(){
             const {app} = OBJECT
@@ -47,15 +46,15 @@ new Vue({
                 OBJECT[i].animate({app, audio})
             }
         },
-        createObject(app){
+        createObject(){
             this.createAudio()
-            this.createVisualizer(app)
+            this.createVisualizer()
         },
         createAudio(){
             OBJECT.audio = new AUDIO()
         },
-        createVisualizer(app){
-            OBJECT.visualizer = new VISUALIZER(app)
+        createVisualizer(){
+            OBJECT.visualizer = new VISUALIZER(OBJECT)
         },
 
 

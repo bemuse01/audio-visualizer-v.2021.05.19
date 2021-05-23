@@ -5,15 +5,19 @@ import METHOD from './visualizer.child.method.js'
 import SHADER from './visualizer.child.shader.js'
 
 export default class{
-    constructor(group, renderer){
-        this.init(renderer)
+    constructor(group, renderer, analyser){
+        this.init(renderer, analyser)
         this.create()
         this.add(group)
     }
 
 
     // init
-    init(renderer){
+    init(renderer, analyser){
+        this.index = new Array(PARAM.seg + 1).fill(0).map((_, i) => i)
+
+        analyser.smoothingTimeConstant = PARAM.smoothingTimeConstant
+
         this.initGPGPU(renderer)
     }
     initGPGPU(renderer){
@@ -35,10 +39,6 @@ export default class{
         this.audioUniforms = this.audioVariable.material.uniforms
 
         this.audioUniforms['uBuffer'] = {value: null}
-        this.audioUniforms['uKernel'] = {value: METHOD.createKernel(PARAM.filter)}
-        this.audioUniforms['uSize'] = {value: PARAM.size}
-        this.audioUniforms['uKernelSize'] = {value: PARAM.filter.length}
-        this.audioUniforms['uCenter'] = {value: Math.floor(PARAM.filter.length / 2)}
     }
 
 
@@ -82,8 +82,12 @@ export default class{
 
 
     // animate
-    animate(buffer){
+    animate({audioData, context}){
         this.gpuCompute.compute()
+
+        const startOffset = Math.floor(1 / PARAM.fps * context.sampleRate)
+        const sample = METHOD.createStepAudioBuffer(audioData.slice(startOffset), PARAM)
+        const buffer = METHOD.createAudioBuffer(sample, this.index, PARAM)
 
         this.audioUniforms['uBuffer'].value = buffer
 

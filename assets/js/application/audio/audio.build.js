@@ -14,7 +14,7 @@ export default class{
     init(){
         this.src = 'assets/src/Avid.mp3'
         this.start = true
-        this.buffer = null
+        this.sample = null
         this.duration = 0
         this.currentTime = 0
         this.index = new Array(PARAM.display).fill(0).map((_, i) => i)
@@ -43,7 +43,6 @@ export default class{
 		source.connect(this.analyser)
 		this.analyser.connect(this.context.destination)
 		this.analyser.fftSize = PARAM.fft
-        this.analyser.smoothingTimeConstant = 0.85
         
         const bufferLength = this.analyser.frequencyBinCount
         
@@ -62,14 +61,6 @@ export default class{
     // animate
     animate(){
         this.analyser.getByteFrequencyData(this.audioData)
-
-        const startOffset = Math.floor(1 / PARAM.fps * this.context.sampleRate)
-        // const sample = this.audioData.slice(startOffset, startOffset + PARAM.display)
-        const sample = METHOD.createStepAudioBuffer(this.audioData.slice(startOffset), PARAM)
-
-        // this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
-        // this.buffer = METHOD.createSmaAduioBuffer(sample, PARAM.size, PARAM.subset)
-        this.buffer = METHOD.createCubicSplineAudioBuffer(sample, this.index, PARAM)
     }
 
 

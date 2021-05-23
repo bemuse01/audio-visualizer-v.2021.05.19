@@ -30,13 +30,7 @@ export default {
     },
     audio: {
         fragment: `
-            #define KERNEL_LEN ${PARAM.filter.length ** 2}
-
             uniform sampler2D uBuffer;
-            uniform float uKernel[KERNEL_LEN];
-            uniform int uKernelSize;
-            uniform int uCenter;
-            uniform int uSize;
 
             void main(){
                 ivec2 coord = ivec2(gl_FragCoord.xy);
