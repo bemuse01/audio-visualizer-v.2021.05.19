@@ -1,7 +1,7 @@
 export default {
     fps: 60,
     step: 12,
-    radius: 250,
+    radius: 230,
     gap: 5,
     display: (18 ** 2) / 2,
     seg: (18 ** 2) / 2 - 1,
