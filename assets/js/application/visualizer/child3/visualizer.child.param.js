@@ -8,5 +8,5 @@ export default {
     size: 18,
     color: 0xffffff,
     smooth: 0.08,
-    smoothingTimeConstant: 0.8
+    smoothingTimeConstant: 0.85
 }

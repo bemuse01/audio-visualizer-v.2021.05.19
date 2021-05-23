@@ -42,7 +42,7 @@ export default {
         const ys = sample
         ys[0] = 0
         // ys[1] = 0
-        // ys[Math.floor((len - 1) * smooth)] = 0
+        ys[Math.floor((len - 1) * smooth)] = 0
         ys[Math.floor((len - 1) * smooth) + 1] = 0
         const spline = new Spline(xs, ys)
         
