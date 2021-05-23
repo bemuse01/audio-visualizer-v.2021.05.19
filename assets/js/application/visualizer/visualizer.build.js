@@ -1,7 +1,7 @@
 import * as THREE from '../../lib/three.module.js'
 // import CHILD from './child/visualizer.child.build.js'
-import CHILD from './child2/visualizer.child.build.js'
-// import CHILD from './child3/visualizer.child.build.js'
+import CHILD_BAR from './child2/visualizer.child.build.js'
+import CHILD_CIRCLE from './child3/visualizer.child.build.js'
 
 export default class{
     constructor({app, audio}){
@@ -70,7 +70,7 @@ export default class{
         this.createChild(renderer, analyser)
     }
     createChild(renderer, analyser){
-        this.comp.child = new CHILD(this.group.child, renderer, analyser)
+        this.comp.child = new CHILD_BAR(this.group.child, renderer, analyser)
     }
 
 
@@ -126,6 +126,28 @@ export default class{
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].resize) continue
             this.comp[i].resize(this.size)
+        }
+    }
+
+
+    // change
+    change(shape, {app, audio}){
+        if(this.comp.child.name === shape) return
+
+        const {renderer} = app
+        const {analyser} = audio
+
+        this.comp.child.remove(this.group.child)
+        
+        switch(shape){
+            case 'bar':
+                this.comp.child = new CHILD_BAR(this.group.child, renderer, analyser)
+                break
+            case 'circle':
+                this.comp.child = new CHILD_CIRCLE(this.group.child, renderer, analyser)
+                break
+            default:
+                break
         }
     }
 }

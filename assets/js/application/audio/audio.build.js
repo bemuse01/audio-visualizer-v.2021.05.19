@@ -12,7 +12,7 @@ export default class{
 
     // init 
     init(){
-        this.src = 'assets/src/Avid.mp3'
+        this.src = 'assets/src/Rapid as Wildfires.mp3'
         this.start = true
         this.sample = null
         this.duration = 0

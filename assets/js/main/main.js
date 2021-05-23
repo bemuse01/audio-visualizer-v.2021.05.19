@@ -2,14 +2,29 @@ import APP from '../application/app/app.build.js'
 import AUDIO from '../application/audio/audio.build.js'
 import VISUALIZER from '../application/visualizer/visualizer.build.js'
 import PROGRESS from '../application/progress/progress.build.js'
+import STAT from '../application/stat/stat.build.js'
 
 new Vue({
     el: '#wrap',
     data(){
         return{
             element: {
-                progress: new PROGRESS(OBJECT)
+                progress: new PROGRESS(),
+                stat: new STAT()
+            },
+            model: {
+                shape: 'bar'
             }
+        }
+    },
+    computed: {
+        watchShape(){
+            return this.model.shape
+        }
+    },
+    watch: {
+        watchShape(){
+            OBJECT.visualizer.change(this.model.shape, OBJECT)
         }
     },
     mounted(){

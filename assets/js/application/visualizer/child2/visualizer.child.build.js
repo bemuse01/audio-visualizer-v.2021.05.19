@@ -14,6 +14,9 @@ export default class{
 
     // init
     init(renderer, analyser){
+        this.name = 'bar'
+        this.play = true
+
         this.index = new Array(PARAM.seg + 1).fill(0).map((_, i) => i)
 
         analyser.smoothingTimeConstant = PARAM.smoothingTimeConstant
@@ -45,6 +48,27 @@ export default class{
     // add
     add(group){
         group.add(this.mesh)
+    }
+
+    // remove
+    remove(group){
+        this.play = false
+        this.removeMesh(group)
+        this.removeGPGPU()
+    }
+    removeMesh(group){
+        group.remove(this.mesh)
+        this.mesh.geometry.dispose()
+        this.mesh.material.dispose()
+        this.mesh.material.uniforms['uAudio'].value.dispose()
+        this.mesh.geometry = null
+        this.mesh.material = null
+    }
+    removeGPGPU(){
+        this.audioVariable.material.dispose()
+        this.audioVariable.material.uniforms['audio'].value.dispose()
+        this.audioVariable.material.uniforms['uBuffer'].value.dispose()
+        this.audioVariable = null
     }
 
 
@@ -83,6 +107,8 @@ export default class{
 
     // animate
     animate({audioData, context}){
+        if(!this.play) return
+
         this.gpuCompute.compute()
 
         const startOffset = Math.floor(1 / PARAM.fps * context.sampleRate)

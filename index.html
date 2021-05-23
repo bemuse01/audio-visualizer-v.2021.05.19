@@ -33,6 +33,7 @@
                         <div class="visualizer-object"></div>
                     </div>
                 </div>
+
                 <div 
                     class="ui progress" 
                     @mousemove="(e) => element.progress.group.child.onMousemove(e)"
@@ -41,6 +42,27 @@
                 >
                     <div class="progress-move" :style="element.progress.group.child.get()"></div>
                     <div class="progress-bar" :style="element.progress.group.bar.get()"></div>
+                </div>
+
+                <div class="ui stat">
+                    <div class="stat-shape-container">
+                        <div 
+                            class="stat-shape"
+                            v-for="i in element.stat.group.shape.get()"
+                            :key="i.key"
+                            :style="i.style"
+                        >   
+                            <input 
+                                :id="i._id"
+                                :value="i.value"
+                                type="radio"
+                                v-model="model.shape"
+                            >
+                            <label :for="i._id">
+                                <span>{{i.name}}</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
