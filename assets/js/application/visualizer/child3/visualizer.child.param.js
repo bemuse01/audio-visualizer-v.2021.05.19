@@ -1,4 +1,4 @@
-import AUDIO_PARAM from '../../audio/audio.param.js'
+import AUDIO_PARAM from '../../audio2/audio.param.js'
 
 export default {
     radius: 250,

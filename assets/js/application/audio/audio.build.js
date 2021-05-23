@@ -12,7 +12,7 @@ export default class{
 
     // init 
     init(){
-        this.src = 'assets/src/LiSA - Unlasting.mp3'
+        this.src = 'assets/src/Avid.mp3'
         this.start = true
         this.buffer = null
         this.duration = 0
@@ -70,7 +70,6 @@ export default class{
         // this.buffer = METHOD.createAudioBuffer(sample, PARAM.size)
         // this.buffer = METHOD.createSmaAduioBuffer(sample, PARAM.size, PARAM.subset)
         this.buffer = METHOD.createCubicSplineAudioBuffer(sample, this.index, PARAM)
-        // this.buffer = METHOD.createCubicSplineAudioBuffer2(sample, this.index, PARAM)
     }
 
 

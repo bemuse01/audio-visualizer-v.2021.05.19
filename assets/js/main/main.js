@@ -1,5 +1,6 @@
 import APP from '../application/app/app.build.js'
-import AUDIO from '../application/audio/audio.build.js'
+// import AUDIO from '../application/audio/audio.build.js'
+import AUDIO from '../application/audio2/audio.build.js'
 import VISUALIZER from '../application/visualizer/visualizer.build.js'
 import PROGRESS from '../application/progress/progress.build.js'
 

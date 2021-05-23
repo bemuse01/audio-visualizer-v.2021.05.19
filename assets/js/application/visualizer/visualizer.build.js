@@ -1,7 +1,7 @@
 import * as THREE from '../../lib/three.module.js'
 // import CHILD from './child/visualizer.child.build.js'
-import CHILD from './child2/visualizer.child.build.js'
-// import CHILD from './child3/visualizer.child.build.js'
+// import CHILD from './child2/visualizer.child.build.js'
+import CHILD from './child3/visualizer.child.build.js'
 
 export default class{
     constructor(app){
