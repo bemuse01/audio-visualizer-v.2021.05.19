@@ -32,7 +32,7 @@ export default class{
             child: null
         }
 
-        this.build = new THREE.Group
+        this.build = new THREE.Group()
     }
     initRenderObject(){
         this.element = document.querySelector('.visualizer-object')
